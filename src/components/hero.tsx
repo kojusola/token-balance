@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import InputForm from './input-form';
 
 export default function Hero() {
   return (
@@ -7,6 +8,7 @@ export default function Hero() {
         Get the Balance of your ERC20 tokens - LINK, USDT and DAI. <br />
         Just By adding Your Wallet address
       </HeroText>
+      <InputForm />
     </HeroContainer>
   );
 }
