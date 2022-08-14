@@ -35,11 +35,17 @@ export default function InputForm() {
   const onSubmit = async (data: IFormData) => {
     setLoading(true);
     if (!ethers.utils.isAddress(data.address)) {
-      return toast.error('Invalid Ethereum Address');
+      setLoading(false);
+      toast.error('Invalid Ethereum Address');
+      reset();
+      return;
     }
     const allAddress = JSON.parse(localStorage.getItem('addresses') || '[]');
     if (allAddress.includes(data.address)) {
-      return toast.error('Address already exists');
+      setLoading(false);
+      toast.error('Address already exists');
+      reset();
+      return;
     }
     const newAddress = [...allAddress, data.address];
     localStorage.setItem('addresses', JSON.stringify(newAddress));

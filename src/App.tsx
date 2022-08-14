@@ -6,6 +6,7 @@ import Hero from './components/hero';
 import Table from './components/table';
 import { ThemeProvider } from 'styled-components';
 import { darkTheme, lightTheme, GlobalStyles } from './theme';
+import Loader from './components/primitives/loader';
 
 function App() {
   const getTheme = localStorage.getItem('themes') || 'dark';
@@ -18,6 +19,7 @@ function App() {
           <Header setThemes={setTheme} />
           <Hero />
           <Table />
+          <Loader />
         </div>
       </AppWrapper>
     </ThemeProvider>
