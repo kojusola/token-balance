@@ -4,12 +4,17 @@ export const darkTheme = {
   textColor: '#ffffff',
   modalTextColor: '#000000',
   headingColor: 'lightblue',
+  scrollBarColor: '#FFFFFF',
+  thumbColor: '#917eff',
 };
+
 export const lightTheme = {
   body: '#ffffff',
   textColor: '#000000',
   modalTextColor: '#000000',
   headingColor: '#d23669',
+  scrollBarColor: '#a9a9a9',
+  thumbColor: '#808080',
 };
 
 type ThemeProps = {
@@ -24,6 +29,14 @@ export const GlobalStyles = createGlobalStyle<ThemeProps>`
   & .modal-background {
     background: '#FFFFFF';
     color: ${(props) => props.theme.modalTextColor};
+  }
+  & .table-container{
+      &::-webkit-scrollbar {
+      background-color: ${(props) => props.theme.scrollBarColor};
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: ${(props) => props.theme.thumbColor};
+    }
   }
  }
  h2{

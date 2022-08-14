@@ -4,38 +4,35 @@ import { addressShortner } from '../utils/helpers';
 
 export default function Table() {
   const { allTokensData } = useAppContext();
+  if (!allTokensData) return null;
   return (
-    <div style={{ width: '100%' }}>
-      {allTokensData && allTokensData?.length > 0 && (
-        <TableContainer>
-          <TableHeader>
-            <AddressCell>Address</AddressCell>
-            <BalanceCell>LINK</BalanceCell>
-            <BalanceCell>USDT</BalanceCell>
-            <BalanceCell>DAI</BalanceCell>
-          </TableHeader>
-          {allTokensData &&
-            allTokensData.map((data: any) => {
-              return (
-                <TableBody key={data?.address}>
-                  <AddressCell>
-                    {addressShortner({ address: data.address, shorter: true })}
-                  </AddressCell>
-                  <BalanceCell>
-                    {Math.round(Number(data.Link) / 10 ** 18)}{' '}
-                  </BalanceCell>
-                  <BalanceCell>
-                    {Math.round(Number(data.Usdt) / 10 ** 6)}{' '}
-                  </BalanceCell>
-                  <BalanceCell>
-                    {Math.round(Number(data.Dai) / 10 ** 18)}{' '}
-                  </BalanceCell>
-                </TableBody>
-              );
-            })}
-        </TableContainer>
-      )}
-    </div>
+    <TableContainer className="table-container">
+      <TableHeader>
+        <AddressCell>Address</AddressCell>
+        <BalanceCell>LINK</BalanceCell>
+        <BalanceCell>USDT</BalanceCell>
+        <BalanceCell>DAI</BalanceCell>
+      </TableHeader>
+      {allTokensData &&
+        allTokensData.map((data: any) => {
+          return (
+            <TableBody>
+              <AddressCell>
+                {addressShortner({ address: data.address, shorter: true })}
+              </AddressCell>
+              <BalanceCell>
+                {Math.round(Number(data.Link) / 10 ** 18)}{' '}
+              </BalanceCell>
+              <BalanceCell>
+                {Math.round(Number(data.Usdt) / 10 ** 6)}{' '}
+              </BalanceCell>
+              <BalanceCell>
+                {Math.round(Number(data.Dai) / 10 ** 18)}{' '}
+              </BalanceCell>
+            </TableBody>
+          );
+        })}
+    </TableContainer>
   );
 }
 
@@ -53,7 +50,7 @@ const TableContainer = styled.div`
   @media (max-width: 768px) {
     padding: 20px;
     padding-top: 40px;
-    padding-bottom: 40px;
+    padding-bottom: 50px;
     width: 100%;
     overflow-x: scroll;
     margin-bottom: 50px;
@@ -62,14 +59,12 @@ const TableContainer = styled.div`
       width: 15px;
       height: 10px;
       border-radius: 30px;
-      background-color: #a9a9a9;
     }
     &::-webkit-scrollbar-thumb {
       -webkit-appearance: none;
       width: 15px;
       height: 10px;
       border-radius: 30px;
-      background-color: #808080;
     }
   }
 `;
