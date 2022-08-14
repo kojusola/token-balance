@@ -4,35 +4,38 @@ import { addressShortner } from '../utils/helpers';
 
 export default function Table() {
   const { allTokensData } = useAppContext();
-  if (!allTokensData) return null;
   return (
-    <TableContainer className="table-container">
-      <TableHeader>
-        <AddressCell>Address</AddressCell>
-        <BalanceCell>LINK</BalanceCell>
-        <BalanceCell>USDT</BalanceCell>
-        <BalanceCell>DAI</BalanceCell>
-      </TableHeader>
-      {allTokensData &&
-        allTokensData.map((data: any) => {
-          return (
-            <TableBody>
-              <AddressCell>
-                {addressShortner({ address: data.address, shorter: true })}
-              </AddressCell>
-              <BalanceCell>
-                {Math.round(Number(data.Link) / 10 ** 18)}{' '}
-              </BalanceCell>
-              <BalanceCell>
-                {Math.round(Number(data.Usdt) / 10 ** 6)}{' '}
-              </BalanceCell>
-              <BalanceCell>
-                {Math.round(Number(data.Dai) / 10 ** 18)}{' '}
-              </BalanceCell>
-            </TableBody>
-          );
-        })}
-    </TableContainer>
+    <div style={{ width: '100%' }}>
+      {allTokensData && allTokensData.length > 0 && (
+        <TableContainer className="table-container">
+          <TableHeader>
+            <AddressCell>Address</AddressCell>
+            <BalanceCell>LINK</BalanceCell>
+            <BalanceCell>USDT</BalanceCell>
+            <BalanceCell>DAI</BalanceCell>
+          </TableHeader>
+          {allTokensData &&
+            allTokensData.map((data: any) => {
+              return (
+                <TableBody>
+                  <AddressCell>
+                    {addressShortner({ address: data.address, shorter: true })}
+                  </AddressCell>
+                  <BalanceCell>
+                    {Math.round(Number(data.Link) / 10 ** 18)}{' '}
+                  </BalanceCell>
+                  <BalanceCell>
+                    {Math.round(Number(data.Usdt) / 10 ** 6)}{' '}
+                  </BalanceCell>
+                  <BalanceCell>
+                    {Math.round(Number(data.Dai) / 10 ** 18)}{' '}
+                  </BalanceCell>
+                </TableBody>
+              );
+            })}
+        </TableContainer>
+      )}
+    </div>
   );
 }
 
