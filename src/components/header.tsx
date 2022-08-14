@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import Switch from 'react-switch';
 import MoonSvg from './primitives/moon';
@@ -5,16 +6,18 @@ import SunSvg from './primitives/sun';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 
-export default function Header({ setThemes }: any) {
-  const handleChange = (nextChecked: boolean) => {};
+export default function Header() {
+  const [checked, setChecked] = useState<boolean>(false);
+  const handleChange = (nextChecked: boolean) => {
+    setChecked(nextChecked);
+  };
   return (
     <div style={{ width: '100%' }}>
       <ToastContainer />
       <HeroContainer>
         <HeroText>TOKENBAL</HeroText>
-        {/* <HeroButton>Connect Wallet</HeroButton> */}
         <Switch
-          checked={false}
+          checked={checked}
           disabled={false}
           onChange={handleChange}
           checkedIcon={<SunSvg />}

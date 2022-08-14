@@ -1,4 +1,6 @@
 import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
+import { ethers } from 'ethers';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -9,12 +11,16 @@ import {
   ModalContent,
   ModalCloseButton,
 } from './primitives/dialog';
+import useTokens from '../utils/web3/hooks/tokens';
+import { useAppContext } from '../context/state';
 
 interface IFormData {
   address: string;
 }
 
 export default function InputForm() {
+  const { getAllTokensBalance } = useTokens();
+  const { setLoading } = useAppContext();
   const validationSchema = Yup.object().shape({
     address: Yup.string().required('Address To transfer is required'),
   });
@@ -23,9 +29,26 @@ export default function InputForm() {
   // get functions to build form with useForm() hook
   const { register, handleSubmit, reset, formState } =
     useForm<IFormData>(formOptions);
+
   const { errors } = formState;
 
-  const onSubmit = async (data: IFormData) => {};
+  const onSubmit = async (data: IFormData) => {
+    setLoading(true);
+    if (!ethers.utils.isAddress(data.address)) {
+      return toast.error('Invalid Ethereum Address');
+    }
+    const allAddress = JSON.parse(localStorage.getItem('addresses') || '[]');
+    if (allAddress.includes(data.address)) {
+      return toast.error('Address already exists');
+    }
+    const newAddress = [...allAddress, data.address];
+    localStorage.setItem('addresses', JSON.stringify(newAddress));
+    await getAllTokensBalance();
+    toast.success('Address added to list');
+    setLoading(false);
+    reset();
+    return;
+  };
 
   return (
     <Modal>

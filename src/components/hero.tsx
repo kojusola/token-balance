@@ -1,7 +1,17 @@
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import InputForm from './input-form';
+import useTokens from '../utils/web3/hooks/tokens';
 
 export default function Hero() {
+  const { getAllTokensBalance } = useTokens();
+  useEffect(() => {
+    const interval = setInterval(() => {
+      getAllTokensBalance();
+    }, 20000);
+    return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <HeroContainer>
       <HeroText>
