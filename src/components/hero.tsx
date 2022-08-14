@@ -29,6 +29,7 @@ const HeroContainer = styled.div`
   padding: 40px;
   padding-top: 80px;
   padding-bottom: 80px;
+  min-height: 60vh;
   display: flex;
   flex-direction: column;
   align-items: center;
