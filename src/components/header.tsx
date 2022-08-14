@@ -6,16 +6,27 @@ import SunSvg from './primitives/sun';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 
-export default function Header() {
-  const [checked, setChecked] = useState<boolean>(false);
+export default function Header({ setThemes }: any) {
+  const getTheme = localStorage.getItem('themes') || 'dark';
+  const [checked, setChecked] = useState<boolean>(
+    getTheme === 'light' ? true : false,
+  );
   const handleChange = (nextChecked: boolean) => {
     setChecked(nextChecked);
+    if (nextChecked) {
+      setThemes('light');
+      localStorage.setItem('themes', 'light');
+    } else {
+      setThemes('dark');
+      localStorage.setItem('themes', 'dark');
+    }
   };
   return (
     <div style={{ width: '100%' }}>
       <ToastContainer />
       <HeroContainer>
         <HeroText>TOKENBAL</HeroText>
+        {/* <HeroButton>Connect Wallet</HeroButton> */}
         <Switch
           checked={checked}
           disabled={false}
